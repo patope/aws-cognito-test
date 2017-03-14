@@ -29,7 +29,12 @@ import java.security.SecureRandom;
 
 /**
  * Copied from https://github.com/aws/aws-sdk-android/blob/master/aws-android-sdk-cognitoidentityprovider/src/main/java/com/amazonaws/mobileconnectors/cognitoidentityprovider/CognitoUser.java#L2429
+ * I tried to use Bouncy Castle's SRP first, but turned out that Amazon's SRP implementation is incompatible with it.<br/>
+ * <br/>
+ * Amazon's <code>k = H(N,g)</code> vs. BC's <code>k = H(PAD(N),PAD(g))</code> <br/>
+ * Amazon's <code>u = H(A,B)</code> vs. BC's <code>u = H(PAD(A),PAD(B))</code> <br/>
  *
+ * https://tools.ietf.org/html/rfc5054#section-2.6
  */
 class AuthenticationHelper {
   private BigInteger a;
@@ -57,6 +62,8 @@ class AuthenticationHelper {
     return A;
   }
 
+
+  // Seems to be 3072-bit Group from rfc5054
   private static final String HEX_N =
     "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1"
       + "29024E088A67CC74020BBEA63B139B22514A08798E3404DD"

@@ -11,3 +11,4 @@ java -jar target/aws-cognito-test-1.0-SNAPSHOT.one-jar.jar \
   -up <poolid>  \ 
   -r <region>
 ```
+

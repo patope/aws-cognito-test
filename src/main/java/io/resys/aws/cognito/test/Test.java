@@ -65,6 +65,7 @@ public class Test {
 
 
 
+
     // Do test
     try {
       AuthenticationHelper helper = new AuthenticationHelper(userPool);
